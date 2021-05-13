@@ -174,6 +174,10 @@ int main(){
         }
         else if(opc == 3){
             HacerFactura(arregloF, vend, inv, contadorFac);
+<<<<<<< Updated upstream
+=======
+            cout<<contadorFac<<endl;
+>>>>>>> Stashed changes
         }
         else if(opc == 4){
             
@@ -193,7 +197,16 @@ int main(){
             <<arregloF[j].Cve_Articulo<<"\t"
             <<nombreArticulo<<endl;
 
+<<<<<<< Updated upstream
     }
+=======
+            for (int j=0; j<=contadorFac; j++){
+                    cout <<arregloF[j].NumFactura<<"\t"
+                    <<arregloF[j].Cve_Vendedor<<"\t\t"
+                    <<arregloF[j].Cve_Articulo<<"\t"
+                    << nombreArticulo <<endl;
+                }
+>>>>>>> Stashed changes
         }
         else if(opc == 5){
             exit(1);
