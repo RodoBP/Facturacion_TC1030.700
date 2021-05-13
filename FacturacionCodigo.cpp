@@ -69,12 +69,11 @@ int ContadorFactura(Factura arregloFactura[]){
 
 
 
-void AgregarVendedor(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[], Vendedor vend, Inventario inv){
+void AgregarVendedor(Vendedor arregloV[]){
 // Adición de vendedores mediante input
     int num = 1;
     string claveVend;
     string nameVend;
-    int contVend=0;
     Vendedor v;
     cout << "Cuantos vendedores desea agregar?" << endl;
     cin >> num;
@@ -82,7 +81,7 @@ void AgregarVendedor(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[
            cout << "Cuantos vendedores desea agregar?" << endl;
             cin >> num;    
         }
-        for (contVend = 0; contVend <= num; contVend ++){
+        for (int contVend = 0; contVend < num; contVend ++){
             cout << "\nIngrese la clave del vendedor: ";
             cin >> claveVend;
             cout << "\nIngrese el nombre del vendedor: ";
@@ -93,21 +92,21 @@ void AgregarVendedor(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[
 
 }
 
-void AgregarArticulo(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[], Vendedor vend, Inventario inv){
+void AgregarArticulo(Inventario arregloI[]){
     // Adición de articulos mediate input
+    Inventario inv;
     string ansArt = "n";
     int numArt = 1;
     string clvArt;
     string descr;
     double price;
-    int contArt = 0;
     cout << "Cuantos articulos desea agregar?" << endl;
     cin >> numArt;
         while(numArt< 1){
            cout << "Cuantos articulos desea agregar?" << endl;
             cin >> numArt;    
         }
-    for (contArt = 0; contArt <= numArt; contArt ++){
+    for (int contArt = 0; contArt < numArt; contArt ++){
         cout << "\nIngrese la clave del articulo: ";
         cin >> clvArt;
         cout << "\nIngrese la descripcion del articulo: ";
@@ -116,61 +115,49 @@ void AgregarArticulo(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[
         cin >> price;
         inv.AgregarArticulo(clvArt, descr, price);
         arregloI[contArt] = inv;
-        contArt ++;
-
     }
    
 
 }
 
-void HacerFactura(Vendedor arregloV[],Inventario arregloI[],Factura arregloF[], Vendedor vend, Inventario inv){
+void HacerFactura(Factura arregloF[], Vendedor vend, Inventario inv){
     //GeneraFactura(contadorFactura, arregloF, v1, i2, 3);
-    string ansFac = "n";
     int numFac = 0;
     string cveVend;
     string cveArt;
     string cantidadArt;
     int contadorFac;
     
-    cout << "Deseea generar una factura? s/n" << endl;
-    cin >> ansFac;
-    if (ansFac == "s"){ 
-        // Vendedor de la compra a facturar
-        cout << "Favor de ingresar la clave del vendedor: ";
-        cin >> cveVend;
-        while(cveVend == vend.Cve_Vendedor){
-            cout << "Favor de ingresar la clave del vendedor: ";
-            cin >> cveVend;
-        }
-        // Articulo de la compra a facturar
-        cout << "Favor de ingresar la clave del articulo: ";
-        cin >> cveArt;
-        while(cveVend == inv.Cve_Articulo){
-            cout << "Favor de ingresar la clave del articulo: ";
-            cin >> cveArt;
-        }
 
-        // Cantidad del articulo a comprar
-        cout << "Favor de ingresar la cantidad del articulo: ";
-        cin >> cantidadArt;
-        int intCantArt;
-        intCantArt = stoi(cantidadArt);
-        while(intCantArt < 1){
-            cout << "Favor de ingresar la cantidad del articulo: ";
-            cin >> cantidadArt;
-            intCantArt = stoi(cantidadArt);
+    // Vendedor de la compra a facturar
+    cout << "Favor de ingresar la clave del vendedor para hacer la factura: ";
+    cin >> cveVend;
 
-        }
-        ContadorFactura(arregloF);
+    // Articulo de la compra a facturar
+    cout << "Favor de ingresar la clave del articulo: ";
+    cin >> cveArt;
 
-        Factura f1;
-        f1.Cve_Vendedor = cveVend;
-        f1.Cve_Articulo =cveArt;
-        f1.Cantidad = intCantArt;
-        f1.NumFactura = "F" + GETDATE();
-        arregloF[contadorFac] = f1;
-    }
+    // Cantidad del articulo a comprar
+    cout << "Favor de ingresar la cantidad del articulo: ";
+    cin >> cantidadArt;
+    int intCantArt;
+    intCantArt = stoi(cantidadArt);
+
+
+    Factura f1;
+    f1.Cve_Vendedor = cveVend;
+    f1.Cve_Articulo =cveArt;
+    f1.Cantidad = intCantArt;
+    f1.NumFactura = "F" + GETDATE();
+    arregloF[contadorFac] = f1;
+
+    cout<<arregloF[0].Cve_Vendedor<<endl;
+    cout<<arregloF[1].Cve_Articulo<<endl;
+
     
+    for (int k=0;k<sizeof(arregloF)/sizeof(arregloF[0]);k++){
+        contadorFac ++;
+    }
 }
 
 int main(){
@@ -180,7 +167,7 @@ int main(){
     Factura arregloF[1000]; // Arreglo de facturas
     Vendedor vend;
     Inventario inv;
-
+    int contadorFac;
     while(true){
         int opc;
         cout << "Bienvenido al sistema de facturacion." << endl;
@@ -192,18 +179,17 @@ int main(){
         cout << "5 ) Salir" << endl;
         cin >> opc;
         if (opc == 1){
-            AgregarVendedor(arregloV, arregloI, arregloF, vend, inv);
+            AgregarVendedor(arregloV);
         }
         else if (opc == 2){
-            AgregarArticulo(arregloV, arregloI, arregloF, vend, inv);
+            AgregarArticulo(arregloI);
         }
         else if(opc == 3){
-            HacerFactura(arregloV, arregloI, arregloF, vend, inv);
+            HacerFactura(arregloF, vend, inv);
         }
         else if(opc == 4){
             
             // Imprimimos todas las facturas
-            int contadorFac;
             contadorFac = ContadorFactura(arregloF);
             cout << "Facturas Generadas "<< endl;
             cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<< endl;
