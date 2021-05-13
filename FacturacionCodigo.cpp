@@ -1,3 +1,10 @@
+/* Silvana Dorita Ruiz Olivarría A01252346
+Luis Rodolfo Bojórquez Pineda A01250513
+TC1030
+Programación Orientada a Objetos
+Grupo 700
+10 de mayo de 2021*/
+
 #include <iostream>
 #include <ctime>
 #include <windows.h>
@@ -58,17 +65,6 @@ string GETDATE(){  // Para ponerle la fecha a la factura
 }
 
 
-int ContadorFactura(Factura arregloFactura[]){
-    int contadorFac = -1;
-    for (int k=0;k<sizeof(arregloFactura)/sizeof(arregloFactura[0]);k++){
-            contadorFac ++;
-    }
-    return contadorFac;
-}
-
-
-
-
 void AgregarVendedor(Vendedor arregloV[]){
 // Adición de vendedores mediante input
     int num = 1;
@@ -120,13 +116,12 @@ void AgregarArticulo(Inventario arregloI[]){
 
 }
 
-void HacerFactura(Factura arregloF[], Vendedor vend, Inventario inv){
+void HacerFactura(Factura arregloF[], Vendedor vend, Inventario inv, int &contadorFac){
     //GeneraFactura(contadorFactura, arregloF, v1, i2, 3);
     int numFac = 0;
     string cveVend;
     string cveArt;
     string cantidadArt;
-    int contadorFac;
     
 
     // Vendedor de la compra a facturar
@@ -143,7 +138,6 @@ void HacerFactura(Factura arregloF[], Vendedor vend, Inventario inv){
     int intCantArt;
     intCantArt = stoi(cantidadArt);
 
-
     Factura f1;
     f1.Cve_Vendedor = cveVend;
     f1.Cve_Articulo =cveArt;
@@ -151,13 +145,7 @@ void HacerFactura(Factura arregloF[], Vendedor vend, Inventario inv){
     f1.NumFactura = "F" + GETDATE();
     arregloF[contadorFac] = f1;
 
-    cout<<arregloF[0].Cve_Vendedor<<endl;
-    cout<<arregloF[1].Cve_Articulo<<endl;
-
-    
-    for (int k=0;k<sizeof(arregloF)/sizeof(arregloF[0]);k++){
-        contadorFac ++;
-    }
+    contadorFac ++;
 }
 
 int main(){
@@ -167,7 +155,7 @@ int main(){
     Factura arregloF[1000]; // Arreglo de facturas
     Vendedor vend;
     Inventario inv;
-    int contadorFac;
+    int contadorFac = 0;
     while(true){
         int opc;
         cout << "Bienvenido al sistema de facturacion." << endl;
@@ -185,28 +173,27 @@ int main(){
             AgregarArticulo(arregloI);
         }
         else if(opc == 3){
-            HacerFactura(arregloF, vend, inv);
+            HacerFactura(arregloF, vend, inv, contadorFac);
         }
         else if(opc == 4){
             
             // Imprimimos todas las facturas
-            contadorFac = ContadorFactura(arregloF);
+            cout<<contadorFac<<endl;
             cout << "Facturas Generadas "<< endl;
             cout << "No" <<"\t\t"<<"Vendedor"<<"\t"<<"Articulo"<< endl;
             string nombreArticulo;
+        
+        for (int j=0; j<=contadorFac; j++){
+        for (int k=0;k<sizeof(arregloI)/sizeof(arregloI[0]);k++){
+            if (arregloF[j].Cve_Articulo == arregloI[k].Cve_Articulo)
+                nombreArticulo = arregloI[k].Descripcion;
+        }
+        cout <<arregloF[j].NumFactura<<"\t"
+            <<arregloF[j].Cve_Vendedor<<"\t\t"
+            <<arregloF[j].Cve_Articulo<<"\t"
+            <<nombreArticulo<<endl;
 
-            for (int j=0; j<=contadorFac; j++){
-                for (int k=0;k<sizeof(arregloI)/sizeof(arregloI[0]);k++){
-                    if (arregloF[j].Cve_Articulo == arregloI[k].Cve_Articulo){
-                        nombreArticulo = arregloI[k].Descripcion;
-                    }
-                
-                    cout <<arregloF[j].NumFactura<<"\t"
-                    <<arregloF[j].Cve_Vendedor<<"\t\t"
-                    <<arregloF[j].Cve_Articulo<<"\t"
-                    << nombreArticulo <<endl;
-                }
-            }
+    }
         }
         else if(opc == 5){
             exit(1);
