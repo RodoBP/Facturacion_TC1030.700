@@ -82,7 +82,6 @@ void Estudiante::setCarrera(string c){
 }
 
 void Estudiante::muestraDatos(){
-    //cout << "Nombre    Edad    Carrera" << endl;
     cout << nombre <<"\t"<<edad<<"\t"<<carrera<<endl;
 }
 
@@ -115,7 +114,6 @@ void Maestro::setDepto(string d){
     depto = d;
 }
 void Maestro::muestraDatos(){
-    //cout<<"Nombre    Edad    Departamento"<<endl;
     cout<<nombre<<"\t"<< edad<<"\t"<<depto<<endl;
 }
 
@@ -161,12 +159,11 @@ void AgregarMaestros(Maestro miArregloM[],int &contM){
 
 }
 
-// Impresión de registro de maesstros
-void MostrarMaestros(Maestro miArregloM[], int contM){
+// Impresión de registro de maestros
+void MostrarMaestros(Maestro miArregloM[], int &contM){
     cout << "Nombre"<<"\t" <<"Edad"<<"\t" <<"Departamento" << endl;
     for (int i = 0; i < contM;i++){
         cout << miArregloM[i].getNombre()<<"\t" << miArregloM[i].getEdad()<<"\t" << miArregloM[i].getDepto()<<endl;
-        //miArregloM[i].muestraDatos();
         
     }
 }
@@ -175,7 +172,6 @@ void MostrarMaestros(Maestro miArregloM[], int contM){
 void MostrarEstudiantes(Estudiante miArregloE[], int &contE){
     cout << "Nombre"<<"\t" <<"Edad"<<"\t" <<"Carrera" << endl;
     for (int i = 0; i < contE;i++){
-        //miArregloE[i].muestraDatos();
         cout << miArregloE[i].getNombre() <<"\t"<< miArregloE[i].getEdad() <<"\t"<< miArregloE[i].getCarrera()<<endl;
         
     }
