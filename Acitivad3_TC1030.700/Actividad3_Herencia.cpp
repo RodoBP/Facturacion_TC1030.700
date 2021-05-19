@@ -136,7 +136,6 @@ void AgregarEstudiantes(Estudiante miArregloE[], int &contE){
         cin >> ans;
         Estudiante unEstudiante(nombreE,edadE,carreraE);
         miArregloE[contE] = unEstudiante;
-        cout << miArregloE[0].getCarrera()<<endl;
         contE ++;
     }
 }
@@ -184,6 +183,7 @@ void MostrarEstudiantes(Estudiante miArregloE[], int &contE){
 
 void MostrarMaesEs(Maestro miArregloM[],Estudiante miArregloE[], int &contE, int &contM){
     MostrarMaestros(miArregloM, contM);
+    cout << endl;
     MostrarEstudiantes(miArregloE, contE);
 }
 
@@ -226,7 +226,7 @@ int main(void){
             exit(1);
         }
         else{
-            while (opc < 1 || opc > 5){
+            while (opc < 1 || opc > 6){
             cout << "Favor de ingresar un numero valido:" << endl;
             cin >> opc;
             }
